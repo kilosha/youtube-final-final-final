@@ -1,5 +1,5 @@
 const responseFormatter = (response) => {
-    const items = response.items.map((item) => {
+    const videos = response.items.map((item) => {
         const { title, description, thumbnails } = item.snippet;
 
         return {
@@ -12,7 +12,7 @@ const responseFormatter = (response) => {
 
     return {
         totalResults: response.pageInfo.totalResults,
-        items
+        videos
     };
 };
 

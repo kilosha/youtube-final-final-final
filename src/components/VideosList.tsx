@@ -1,15 +1,15 @@
 import React from "react";
 
 import { Image, List } from "antd";
-import response from "../response";
 import { responseFormatter } from "../utils/utils";
+import { useSelector } from "react-redux";
 
 const VideosList = () => {
-    const data = responseFormatter(response);
+    const data = useSelector((state) => state.videos.videos);
     return (
         <List
             itemLayout="horizontal"
-            dataSource={data.items}
+            dataSource={data}
             renderItem={(item) => (
                 <List.Item key={item.id}>
                     <List.Item.Meta
