@@ -7,7 +7,7 @@ import VideosCards from "./VideosCards";
 
 const Results = () => {
     const [selectedTab, setSelectedTab] = useState("List");
-    const totalResults = useSelector((state) => state.videos.totalResults);
+    const { totalResults, searchQuery } = useSelector((state) => state.videos);
 
     const onSelectionChange = (e) => {
         setSelectedTab(e);
@@ -28,7 +28,9 @@ const Results = () => {
                     marginTop: "10px"
                 }}
             >
-                <p>Видео по запросу "чем кормить кота" {totalResults}</p>
+                <p>
+                    Видео по запросу "{searchQuery}" {totalResults}
+                </p>
                 <Segmented
                     options={[
                         { value: "List", icon: <BarsOutlined /> },

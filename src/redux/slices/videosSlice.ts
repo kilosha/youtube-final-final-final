@@ -35,12 +35,12 @@ const getVideos = createAsyncThunk(
         const data = response.data;
         const result = responseFormatter(data);
 
-        return result;
+        return { ...result, searchValue };
     }
 );
 
 const data = responseFormatter(response);
-const initialState = { ...data };
+const initialState = { ...data, searchQuery: "Диана Пилат" };
 
 export const videosSlice = createSlice({
     name: "videos",
