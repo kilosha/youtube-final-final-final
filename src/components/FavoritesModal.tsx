@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Slider, Select, Form, Input, Modal, Radio } from "antd";
 import { Col, InputNumber, Row, Space } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, editFavorite } from "../redux/slices/favoritesSlice";
 
 interface Values {
     title?: string;
@@ -8,16 +10,28 @@ interface Values {
     modifier?: string;
 }
 
-const FavoritesModal = ({ isModalOpen, setIsModalOpen }) => {
+const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
+    const dispatch = useDispatch();
+    // const { modalData } = useSelector((state) => state.modal);
     const [form] = Form.useForm();
-    const [formValues, setFormValues] = useState<Values>();
-    const [open, setOpen] = useState(false);
+    //const [formValues, setFormValues] = useState<Values>(data);
 
     const onCreate = (values: Values) => {
-        console.log("Received values of form: ", values);
-        setFormValues(values);
-        setOpen(false);
+        if (mode === "add") {
+            dispatch(addFavorite(values));
+        } else {
+            dispatch(editFavorite({ ...values, id: data.id }));
+        }
+
+        close();
     };
+
+    useEffect(() => {
+        if (isModalOpen) {
+            form.setFieldsValue(data);
+        }
+    }, [isModalOpen, data, form]);
+
     return (
         <>
             <Modal
@@ -26,14 +40,14 @@ const FavoritesModal = ({ isModalOpen, setIsModalOpen }) => {
                 okText="Сохранить"
                 cancelText="Не сохранять"
                 okButtonProps={{ autoFocus: true, htmlType: "submit" }}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={() => close()}
                 destroyOnHidden
                 modalRender={(dom) => (
                     <Form
                         layout="vertical"
                         form={form}
                         name="form_in_modal"
-                        initialValues={{ modifier: "public" }}
+                        //initialValues={formValues}
                         clearOnDestroy
                         onFinish={(values) => onCreate(values)}
                     >
@@ -41,11 +55,11 @@ const FavoritesModal = ({ isModalOpen, setIsModalOpen }) => {
                     </Form>
                 )}
             >
-                <Form.Item name="title" label="Запрос">
-                    <Input />
+                <Form.Item name="query" label="Запрос">
+                    <Input disabled />
                 </Form.Item>
                 <Form.Item
-                    name="description"
+                    name="title"
                     label="Название"
                     rules={[
                         {
@@ -57,11 +71,11 @@ const FavoritesModal = ({ isModalOpen, setIsModalOpen }) => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item name="select" label="Сортировать по">
+                <Form.Item name="sortBy" label="Сортировать по">
                     <Select options={[{ label: "Demo", value: "demo" }]} />
                 </Form.Item>
 
-                <Form.Item name="slider" label="Максимальное количество">
+                <Form.Item name="maxResults" label="Максимальное количество">
                     <Row>
                         <Col span={12}>
                             <Slider

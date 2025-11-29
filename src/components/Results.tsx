@@ -9,8 +9,8 @@ const Results = () => {
     const [selectedTab, setSelectedTab] = useState("List");
     const { totalResults, searchQuery } = useSelector((state) => state.videos);
 
-    const onSelectionChange = (e) => {
-        setSelectedTab(e);
+    const onSelectionChange = (value: string) => {
+        setSelectedTab(value);
     };
 
     return (

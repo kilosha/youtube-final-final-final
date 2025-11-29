@@ -1,25 +1,24 @@
 import { Input, Typography } from "antd";
 import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import { useState } from "react";
-import axios from "axios";
 import Results from "../components/Results";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideos } from "../redux/slices/videosSlice";
-import { responseFormatter } from "../utils/utils";
-import FavoritesModal from "../components/FavoritesModal";
+import { useModal } from "../ModalProvider";
 
 const SearchPage = () => {
     const [searchValue, setSearchValue] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { openModal } = useModal();
+    const dispatch = useDispatch();
 
     const onHeartClick = () => {
-        setIsModalOpen(true);
+        openModal("add", { query: searchValue });
     };
+
     const onChangeSearchValue = (e) => {
         setSearchValue(e.target.value);
     };
-    const { videos, totalResults } = useSelector((state) => state.videos);
-    const dispatch = useDispatch();
+    const { videos } = useSelector((state) => state.videos);
 
     const onSearch = async () => {
         dispatch(getVideos(searchValue));
@@ -63,11 +62,6 @@ const SearchPage = () => {
             />
 
             {videos.length > 0 && <Results />}
-
-            <FavoritesModal
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-            />
         </div>
     );
 };

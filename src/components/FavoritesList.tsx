@@ -1,21 +1,34 @@
-import React from "react";
-import { Divider, List, Typography } from "antd";
+import { List } from "antd";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { useModal } from "../ModalProvider";
 
-const data = ["видео", "чем кормить кота", "Диана Пилат"];
+const FavoritesList = () => {
+    const { favorites } = useSelector((store) => store.favorites);
+    const { openModal } = useModal();
 
-const FavoritesList = () => (
-    <>
-        <List
-            bordered
-            dataSource={data}
-            renderItem={(item) => (
-                <List.Item actions={[<EditTwoTone />, <DeleteTwoTone />]}>
-                    {item}
-                </List.Item>
-            )}
-        />
-    </>
-);
+    const onEdit = (item) => {
+        openModal("edit", item);
+    };
+
+    return (
+        <>
+            <List
+                bordered
+                dataSource={favorites}
+                renderItem={(item) => (
+                    <List.Item
+                        actions={[
+                            <EditTwoTone onClick={() => onEdit(item)} />,
+                            <DeleteTwoTone />
+                        ]}
+                    >
+                        {item.title}
+                    </List.Item>
+                )}
+            />
+        </>
+    );
+};
 
 export default FavoritesList;
