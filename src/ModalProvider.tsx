@@ -14,7 +14,7 @@ export const ModalProvider = ({ children }) => {
         setModalProps({
             id: props.id || "",
             query: props.query,
-            title: props.title || props.query,
+            title: props.title || "",
             sortBy: props.sortBy || "",
             maxResults: props.maxResults || 12
         });

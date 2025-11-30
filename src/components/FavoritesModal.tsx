@@ -75,33 +75,37 @@ const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
                     <Select options={[{ label: "Demo", value: "demo" }]} />
                 </Form.Item>
 
-                <Form.Item name="maxResults" label="Максимальное количество">
-                    <Row>
-                        <Col span={12}>
+                <Row>
+                    <Col span={12}>
+                        <Form.Item
+                            name="maxResults"
+                            label="Максимальное количество"
+                        >
                             <Slider
-                                min={0}
-                                max={1}
+                                min={1}
+                                max={50}
                                 // onChange={onChange}
                                 // value={
                                 //     typeof inputValue === "number"
                                 //         ? inputValue
                                 //         : 0
                                 // }
-                                step={0.01}
+                                step={1}
                             />
-                        </Col>
-                        <Col span={4}>
+                        </Form.Item>
+                    </Col>
+                    <Col span={4}>
+                        <Form.Item name="maxResults" label="">
                             <InputNumber
-                                min={0}
-                                max={1}
-                                style={{ margin: "0 16px" }}
-                                step={0.01}
+                                min={1}
+                                max={50}
+                                step={1}
                                 //value={inputValue}
                                 //onChange={onChange}
                             />
-                        </Col>
-                    </Row>
-                </Form.Item>
+                        </Form.Item>
+                    </Col>
+                </Row>
             </Modal>
         </>
     );
