@@ -1,9 +1,11 @@
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
-import { Segmented } from "antd";
+import { Segmented, Typography } from "antd";
 import VideosList from "../components/VideosList";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import VideosCards from "./VideosCards";
+
+const { Text, Title } = Typography;
 
 const Results = () => {
     const [selectedTab, setSelectedTab] = useState("List");
@@ -25,12 +27,19 @@ const Results = () => {
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginTop: "10px"
+                    marginTop: "20px",
+                    marginBottom: "15px"
                 }}
             >
-                <p>
-                    Видео по запросу "{searchQuery}" {totalResults}
-                </p>
+                <Title level={5} style={{ margin: "0" }}>
+                    Видео по запросу
+                    <Text style={{ fontSize: "16px" }} strong>
+                        «{searchQuery}»
+                    </Text>
+                    <Text style={{ fontSize: "16px" }} type="secondary">
+                        {totalResults}
+                    </Text>
+                </Title>
                 <Segmented
                     options={[
                         { value: "List", icon: <BarsOutlined /> },

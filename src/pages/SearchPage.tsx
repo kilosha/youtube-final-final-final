@@ -1,28 +1,10 @@
-import { Input, Typography } from "antd";
-import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
-import { useState } from "react";
+import { Typography } from "antd";
 import Results from "../components/Results";
-import { useDispatch, useSelector } from "react-redux";
-import { getVideos } from "../redux/slices/videosSlice";
-import { useModal } from "../ModalProvider";
+import { useSelector } from "react-redux";
+import MySearch from "../components/MySearch";
 
 const SearchPage = () => {
-    const [searchValue, setSearchValue] = useState("");
-    const { openModal } = useModal();
-    const dispatch = useDispatch();
-
-    const onHeartClick = () => {
-        openModal("add", { query: searchValue });
-    };
-
-    const onChangeSearchValue = (e) => {
-        setSearchValue(e.target.value);
-    };
     const { videos } = useSelector((state) => state.videos);
-
-    const onSearch = async () => {
-        dispatch(getVideos(searchValue));
-    };
 
     return (
         <div
@@ -46,20 +28,7 @@ const SearchPage = () => {
                 </Typography.Title>
             )}
 
-            <Input.Search
-                style={{ width: videos.length > 0 ? "100%" : "65%" }}
-                placeholder="Что смотрим сегодня?"
-                enterButton="Найти"
-                size="large"
-                suffix={
-                    videos.length > 0 ? (
-                        <HeartOutlined onClick={onHeartClick} />
-                    ) : null
-                } // ||  || <HeartTwoTone />}
-                onSearch={onSearch}
-                value={searchValue}
-                onChange={(e) => onChangeSearchValue(e)}
-            />
+            <MySearch />
 
             {videos.length > 0 && <Results />}
         </div>

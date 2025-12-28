@@ -1,15 +1,27 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import FavoritesModal from "./components/FavoritesModal";
 
 const ModalContext = createContext(null);
 export const useModal = () => useContext(ModalContext);
 
-export const ModalProvider = ({ children }) => {
+type FavoriteItem = {
+    id: string;
+    query: string;
+    title: string;
+    sortBy: string;
+    maxResults: number;
+};
+
+type PropsType = {
+    children: ReactNode;
+};
+
+export const ModalProvider = ({ children }: PropsType) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [mode, setMode] = useState("add");
     const [modalProps, setModalProps] = useState({});
 
-    const openModal = (mode: string, props: object) => {
+    const openModal = (mode: string, props: FavoriteItem) => {
         setMode(mode);
         setModalProps({
             id: props.id || "",

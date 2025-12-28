@@ -5,12 +5,11 @@ const VideosCards = () => {
     const videos = useSelector((state) => state.videos.videos);
 
     return (
-        <Row gutter={16}>
+        <Row gutter={[20, 20]}>
             {videos.map((video) => {
                 return (
                     <Col span={6}>
                         <Card
-                            style={{ width: 300 }}
                             cover={
                                 <img
                                     draggable={false}
