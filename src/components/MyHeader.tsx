@@ -2,7 +2,9 @@ import { Layout, Menu, Button } from "antd";
 
 const { Header } = Layout;
 import logo from "../assets/logo.svg";
-import { Link, NavLink, useLocation } from "react-router";
+import { NavLink, useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/slices/authSlice";
 
 const items = [
     {
@@ -16,13 +18,22 @@ const items = [
 ];
 const MyHeader = () => {
     const { pathname } = useLocation();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+        //navigate("/login");
+    };
 
     return (
         <Header
             style={{
                 display: "flex",
                 alignItems: "center",
-                borderBottom: "2px solid rgba(5, 5, 5, 0.06)"
+                borderBottom: "2px solid rgba(5, 5, 5, 0.06)",
+                position: "sticky",
+                top: 0,
+                zIndex: 1000
             }}
         >
             <img src={logo} alt="logo" />
@@ -33,8 +44,8 @@ const MyHeader = () => {
                 items={items}
                 style={{ flex: 1, minWidth: 0 }}
             />
-            <Button type="text">
-                <Link to="/login">Выйти</Link>
+            <Button type="text" onClick={handleLogout}>
+                Выйти
             </Button>
         </Header>
     );

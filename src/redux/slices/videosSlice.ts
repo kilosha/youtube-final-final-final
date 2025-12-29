@@ -4,19 +4,6 @@ import axios from "axios";
 
 import response from "../../response.js";
 
-// Создаем асинхронное действие с помощью createAsyncThunk
-// const fetchGetTasks = createAsyncThunk(
-//     "todos/fetchGetTasks",
-//     async (_, { rejectWithValue }) => {
-//         try {
-//             const { data } = await API.get("/todos");
-//             return data;
-//         } catch (error) {
-//             return rejectWithValue({ message: getErrorMessage(error) });
-//         }
-//     }
-// );
-
 const getVideos = createAsyncThunk(
     "videos/getVideos",
     async (searchValue, thunkAPI) => {

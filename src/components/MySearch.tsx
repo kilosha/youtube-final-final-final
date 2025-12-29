@@ -29,9 +29,13 @@ const MySearch = () => {
             enterButton="Найти"
             size="large"
             suffix={
-                videos.length > 0 ? (
-                    <HeartOutlined onClick={onHeartClick} />
-                ) : null
+                <HeartOutlined
+                    style={{
+                        visibility: searchValue ? "visible" : "hidden",
+                        cursor: "pointer"
+                    }}
+                    onClick={onHeartClick}
+                />
             } // ||  || <HeartTwoTone />}
             onSearch={onSearch}
             value={searchValue}

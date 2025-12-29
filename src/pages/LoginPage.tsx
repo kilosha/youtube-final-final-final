@@ -5,6 +5,8 @@ import logo from "../assets/logo.svg";
 import { Layout } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/authSlice";
 
 const { Header, Content } = Layout;
 
@@ -16,15 +18,10 @@ type FieldType = {
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
         try {
-            const response = await axios.post(
-                "https://todo-redev.herokuapp.com/api/auth/login",
-                {
-                    ...values
-                }
-            );
-            localStorage.setItem("token", response.data.token);
+            await dispatch(login(values)).unwrap();
             navigate("/search");
         } catch (e) {
             alert(e.response.data.message);

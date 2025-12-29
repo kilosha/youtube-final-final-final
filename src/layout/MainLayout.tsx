@@ -8,7 +8,8 @@ const MainLayout = () => {
     return (
         <Layout
             style={{
-                height: "inherit"
+                height: "inherit",
+                overflowY: "auto"
             }}
         >
             <MyHeader />
