@@ -20,7 +20,8 @@ const Results = () => {
     return (
         <div
             style={{
-                width: "100%"
+                width: "100%",
+                paddingBottom: "15px"
             }}
         >
             <div

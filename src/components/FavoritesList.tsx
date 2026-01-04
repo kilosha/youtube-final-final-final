@@ -1,9 +1,13 @@
-import { List, Typography } from "antd";
-import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../ModalProvider";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { List, Popconfirm, Typography } from "antd";
+import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
+
+import { useModal } from "../ModalProvider";
+
 import { getVideos } from "../redux/slices/videosSlice";
+import { deleteFavorite } from "../redux/slices/favoritesSlice";
 
 const { Text } = Typography;
 
@@ -17,6 +21,10 @@ const FavoritesList = () => {
         openModal("edit", item);
     };
 
+    const onDeletionConfirmed = (item) => {
+        dispatch(deleteFavorite(item));
+    };
+
     return (
         <>
             <List
@@ -26,13 +34,22 @@ const FavoritesList = () => {
                     <List.Item
                         actions={[
                             <EditTwoTone onClick={() => onEdit(item)} />,
-                            <DeleteTwoTone />
+                            <Popconfirm
+                                placement="topLeft"
+                                title="Удалить избранное"
+                                description={`Вы действительно хотите удалить сохранённый запрос ${item.title}?`}
+                                onConfirm={() => onDeletionConfirmed(item)}
+                                okText="Да"
+                                cancelText="Ой, нет"
+                            >
+                                <DeleteTwoTone />
+                            </Popconfirm>
                         ]}
                     >
                         <Text
                             strong
                             onClick={() => {
-                                navigate("search");
+                                navigate("/search");
                                 dispatch(getVideos(item));
                             }}
                         >

@@ -66,6 +66,11 @@ export const favoritesSlice = createSlice({
                     return item;
                 }
             });
+        },
+        deleteFavorite: (state, action) => {
+            state.favorites = state.favorites.filter(
+                (item) => item.id !== action.payload.id
+            );
         }
     }
     // extraReducers: (builder) => {
@@ -78,6 +83,7 @@ export const favoritesSlice = createSlice({
 
 //export { getFavorites };
 
-export const { addFavorite, editFavorite } = favoritesSlice.actions;
+export const { addFavorite, editFavorite, deleteFavorite } =
+    favoritesSlice.actions;
 
 export default favoritesSlice.reducer;

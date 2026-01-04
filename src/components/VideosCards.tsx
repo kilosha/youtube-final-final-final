@@ -10,6 +10,9 @@ const VideosCards = () => {
                 return (
                     <Col span={6}>
                         <Card
+                            style={{
+                                height: "100%"
+                            }}
                             cover={
                                 <img
                                     draggable={false}
@@ -19,7 +22,14 @@ const VideosCards = () => {
                             }
                         >
                             <Card.Meta
-                                title={video.title}
+                                title={
+                                    <a
+                                        href={`https://www.youtube.com/watch?v=${video.id}`}
+                                        target="_blank"
+                                    >
+                                        {video.title}
+                                    </a>
+                                }
                                 description={video.description}
                             />
                         </Card>
