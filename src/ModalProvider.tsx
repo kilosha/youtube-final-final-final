@@ -26,8 +26,8 @@ export const ModalProvider = ({ children }: PropsType) => {
         setModalProps({
             id: props.id || "",
             query: props.query,
-            title: props.title || "",
-            sortBy: props.sortBy || "",
+            title: props.title || props.query,
+            sortBy: props.sortBy || "relevance",
             maxResults: props.maxResults || 12
         });
 

@@ -1,17 +1,17 @@
 import { Input } from "antd";
 import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../ModalProvider";
 import { getVideos } from "../redux/slices/videosSlice";
 
 const MySearch = () => {
     const [searchValue, setSearchValue] = useState("");
-    const { videos } = useSelector((state) => state.videos);
+    const { videos, query } = useSelector((state) => state.videos);
     const { openModal } = useModal();
     const dispatch = useDispatch();
     const onSearch = async () => {
-        dispatch(getVideos(searchValue));
+        dispatch(getVideos({ query: searchValue }));
     };
 
     const onHeartClick = () => {
@@ -21,6 +21,10 @@ const MySearch = () => {
     const onChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     };
+
+    useEffect(() => {
+        setSearchValue(query);
+    }, [query]);
 
     return (
         <Input.Search

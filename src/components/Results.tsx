@@ -9,7 +9,9 @@ const { Text, Title } = Typography;
 
 const Results = () => {
     const [selectedTab, setSelectedTab] = useState("List");
-    const { totalResults, searchQuery } = useSelector((state) => state.videos);
+    const { totalResults, query: searchQuery } = useSelector(
+        (state) => state.videos
+    );
 
     const onSelectionChange = (value: string) => {
         setSelectedTab(value);
@@ -33,10 +35,16 @@ const Results = () => {
             >
                 <Title level={5} style={{ margin: "0" }}>
                     Видео по запросу
-                    <Text style={{ fontSize: "16px" }} strong>
+                    <Text
+                        style={{ fontSize: "16px", marginLeft: "5px" }}
+                        strong
+                    >
                         «{searchQuery}»
                     </Text>
-                    <Text style={{ fontSize: "16px" }} type="secondary">
+                    <Text
+                        style={{ fontSize: "16px", marginLeft: "15px" }}
+                        type="secondary"
+                    >
                         {totalResults}
                     </Text>
                 </Title>

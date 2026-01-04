@@ -72,7 +72,15 @@ const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
                 </Form.Item>
 
                 <Form.Item name="sortBy" label="Сортировать по">
-                    <Select options={[{ label: "Demo", value: "demo" }]} />
+                    <Select
+                        options={[
+                            { label: "date", value: "date" },
+                            { label: "rating", value: "rating" },
+                            { label: "relevance", value: "relevance" },
+                            { label: "title", value: "title" },
+                            { label: "viewCount", value: "viewCount" }
+                        ]}
+                    />
                 </Form.Item>
 
                 <Row>

@@ -41,7 +41,15 @@ export const favoritesSlice = createSlice({
     name: "favorites",
     //initialState,
     initialState: {
-        favorites: []
+        favorites: [
+            {
+                query: "diana pilat heelssession",
+                title: "diana pilat heelssession",
+                sortBy: "relevance",
+                maxResults: 22,
+                id: "4e8676de-ff89-4a70-8253-46b9dbdd1258"
+            }
+        ]
     },
     reducers: {
         addFavorite: (state, action) => {

@@ -41,6 +41,7 @@ const MyHeader = () => {
                 theme="light"
                 mode="horizontal"
                 defaultSelectedKeys={[pathname]}
+                selectedKeys={[pathname]}
                 items={items}
                 style={{ flex: 1, minWidth: 0 }}
             />
