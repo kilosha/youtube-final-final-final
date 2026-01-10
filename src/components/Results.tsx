@@ -1,15 +1,16 @@
+import { useState } from "react";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import { Segmented, Typography } from "antd";
+
 import VideosList from "../components/VideosList";
-import { useSelector } from "react-redux";
-import { useState } from "react";
 import VideosCards from "./VideosCards";
+import useTypedSelector from "../hooks/useTypedSelector";
 
 const { Text, Title } = Typography;
 
 const Results = () => {
     const [selectedTab, setSelectedTab] = useState("List");
-    const { totalResults, query: searchQuery } = useSelector(
+    const { totalResults, query: searchQuery } = useTypedSelector(
         (state) => state.videos
     );
 

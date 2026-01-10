@@ -9,13 +9,17 @@ import useAppDispatch from "../hooks/useAppDispatch";
 
 const { Content } = Layout;
 
+type Gender = "male" | "female";
+
 type FieldType = {
-    email?: string;
-    password?: string;
-    remember?: string;
+    username: string;
+    email: string;
+    password: string;
+    gender: Gender;
+    age: number;
 };
 
-const LoginPage = () => {
+const RegisterPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { isLoading } = useTypedSelector((state) => state.auth);
@@ -74,7 +78,27 @@ const LoginPage = () => {
                             <img src={logo} alt={"logo"} />
                         </Form.Item>
 
-                        <Form.Item label={null}>Вход</Form.Item>
+                        <Form.Item label={null}>Регистрация</Form.Item>
+                        <Form.Item<FieldType>
+                            label="Имя пользователя"
+                            name="username"
+                            rules={[
+                                {
+                                    pattern: new RegExp(
+                                        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                                    ),
+                                    message: "Введите валидный email",
+                                    validateTrigger: "onBlur"
+                                },
+                                {
+                                    required: true,
+                                    message: "Пожалуйста, введите email",
+                                    validateTrigger: "onSubmit"
+                                }
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
                         <Form.Item<FieldType>
                             label="Email"
                             name="email"
@@ -109,6 +133,22 @@ const LoginPage = () => {
                             <Input.Password />
                         </Form.Item>
 
+                        <Form.Item<FieldType>
+                            required
+                            label="Пол"
+                            name="gender"
+                        >
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item<FieldType>
+                            required
+                            label="Возраст"
+                            name="age"
+                        >
+                            <Input />
+                        </Form.Item>
+
                         {/* <Form.Item<FieldType>
                         name="remember"
                         valuePropName="checked"
@@ -123,11 +163,11 @@ const LoginPage = () => {
                                 htmlType="submit"
                                 loading={isLoading}
                             >
-                                Войти
+                                Зарегистрироваться
                             </Button>
                         </Form.Item>
                         <Form.Item label={null}>
-                            or <Link to={"/register"}>Register now!</Link>
+                            Уже есть аккаунт? <Link to={"/login"}>Войти</Link>
                         </Form.Item>
                     </Form>
                 </Content>
@@ -136,4 +176,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 
 import { List, Popconfirm, Typography } from "antd";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
@@ -8,14 +7,16 @@ import { useModal } from "../ModalProvider";
 
 import { getVideos } from "../redux/slices/videosSlice";
 import { deleteFavorite } from "../redux/slices/favoritesSlice";
+import useTypedSelector from "../hooks/useTypedSelector";
+import useAppDispatch from "../hooks/useAppDispatch";
 
 const { Text } = Typography;
 
 const FavoritesList = () => {
-    const { favorites } = useSelector((store) => store.favorites);
+    const { favorites } = useTypedSelector((store) => store.favorites);
     const { openModal } = useModal();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const onEdit = (item) => {
         openModal("edit", item);

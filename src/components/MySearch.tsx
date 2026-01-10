@@ -1,15 +1,16 @@
 import { Input } from "antd";
 import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import { useEffect, useState, type ChangeEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../ModalProvider";
 import { getVideos } from "../redux/slices/videosSlice";
+import useTypedSelector from "../hooks/useTypedSelector";
+import useAppDispatch from "../hooks/useAppDispatch";
 
 const MySearch = () => {
     const [searchValue, setSearchValue] = useState("");
-    const { videos, query } = useSelector((state) => state.videos);
+    const { videos, query } = useTypedSelector((state) => state.videos);
     const { openModal } = useModal();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const onSearch = async () => {
         dispatch(getVideos({ query: searchValue }));
     };

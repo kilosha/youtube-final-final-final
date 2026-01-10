@@ -1,8 +1,13 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import useTypedSelector from "../hooks/useTypedSelector";
+import type { ReactNode } from "react";
 
-const ProtectedRoute = ({ children }) => {
-    const { token } = useSelector((state) => state.auth);
+type PropsType = {
+    children: ReactNode;
+};
+
+const ProtectedRoute = ({ children }: PropsType) => {
+    const { token } = useTypedSelector((state) => state.auth);
     const isAuth = Boolean(token);
 
     if (!isAuth) {

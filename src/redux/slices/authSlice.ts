@@ -13,7 +13,7 @@ const login = createAsyncThunk(
             );
             return data.token;
         } catch (error) {
-            // return rejectWithValue({ message: getErrorMessage(error) });
+            return rejectWithValue({ message: error.response.data.message });
         }
     }
 );
@@ -21,7 +21,8 @@ const login = createAsyncThunk(
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
-        token: null
+        token: null,
+        isLoading: false
     },
     reducers: {
         logout: (state) => {
@@ -31,6 +32,13 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
             state.token = action.payload;
+            state.isLoading = false;
+        });
+        builder.addCase(login.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(login.rejected, (state) => {
+            state.isLoading = false;
         });
     }
 });

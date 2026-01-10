@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Slider, Select, Form, Input, Modal, Radio } from "antd";
 import { Col, InputNumber, Row, Space } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, editFavorite } from "../redux/slices/favoritesSlice";
+import useAppDispatch from "../hooks/useAppDispatch";
 
 interface Values {
     title?: string;
@@ -11,7 +11,7 @@ interface Values {
 }
 
 const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     // const { modalData } = useSelector((state) => state.modal);
     const [form] = Form.useForm();
     //const [formValues, setFormValues] = useState<Values>(data);

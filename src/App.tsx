@@ -1,11 +1,14 @@
-import { ConfigProvider, Layout, Menu, Button } from "antd";
+import { ConfigProvider } from "antd";
 import { Routes, Route } from "react-router";
-import "./App.css";
+
 import SearchPage from "./pages/SearchPage";
 import LoginPage from "./pages/LoginPage";
 import MainLayout from "./layout/MainLayout";
 import FavoritesPage from "./pages/FavoritesPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import RegisterPage from "./pages/RegisterPage";
+
+import "./App.css";
 
 function App() {
     return (
@@ -32,6 +35,7 @@ function App() {
                     </Route>
 
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                 </Routes>
             </ConfigProvider>
         </>

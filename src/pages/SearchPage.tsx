@@ -1,10 +1,10 @@
 import { Typography } from "antd";
 import Results from "../components/Results";
-import { useSelector } from "react-redux";
 import MySearch from "../components/MySearch";
+import useTypedSelector from "../hooks/useTypedSelector";
 
 const SearchPage = () => {
-    const { videos } = useSelector((state) => state.videos);
+    const { videos } = useTypedSelector((state) => state.videos);
 
     return (
         <div

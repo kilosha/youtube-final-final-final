@@ -1,12 +1,14 @@
 import { Card, Col, Row } from "antd";
-import { useSelector } from "react-redux";
+
+import useTypedSelector from "../hooks/useTypedSelector";
+import type { VideoItem } from "../constants/Types";
 
 const VideosCards = () => {
-    const videos = useSelector((state) => state.videos.videos);
+    const videos = useTypedSelector((state) => state.videos.videos);
 
     return (
         <Row gutter={[20, 20]}>
-            {videos.map((video) => {
+            {videos.map((video: VideoItem) => {
                 return (
                     <Col span={6}>
                         <Card

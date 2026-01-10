@@ -6,22 +6,26 @@ import responseMock from "../../response.js";
 
 const getVideos = createAsyncThunk(
     "videos/getVideos",
-    async (searchInfo: { query: string; maxResults: number }, thunkAPI) => {
-        // const response = await axios.get(
-        //     "https://youtube.googleapis.com/youtube/v3/search",
-        //     {
-        //         params: {
-        //             type: "video",
-        //             part: "snippet",
-        //             maxResults: searchInfo.maxResults || 12,
-        //             q: searchInfo.query,
-        //             key: import.meta.env.VITE_API_KEY
-        //         }
-        //     }
-        // );
-        // const data = response.data;
-        // const result = responseFormatter(data);
-        const result = responseFormatter(responseMock);
+    async (
+        searchInfo: { query: string; maxResults: number; sortBy: string },
+        thunkAPI
+    ) => {
+        const response = await axios.get(
+            "https://youtube.googleapis.com/youtube/v3/search",
+            {
+                params: {
+                    type: "video",
+                    part: "snippet",
+                    maxResults: searchInfo.maxResults || 12,
+                    order: searchInfo.sortBy || "relevance",
+                    q: searchInfo.query,
+                    key: import.meta.env.VITE_API_KEY
+                }
+            }
+        );
+        const data = response.data;
+        const result = responseFormatter(data);
+        //        const result = responseFormatter(responseMock);
 
         return { ...result, query: searchInfo.query };
     }

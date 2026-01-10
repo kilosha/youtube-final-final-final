@@ -3,8 +3,8 @@ import { Layout, Menu, Button } from "antd";
 const { Header } = Layout;
 import logo from "../assets/logo.svg";
 import { NavLink, useLocation } from "react-router";
-import { useDispatch } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import useAppDispatch from "../hooks/useAppDispatch";
 
 const items = [
     {
@@ -18,7 +18,7 @@ const items = [
 ];
 const MyHeader = () => {
     const { pathname } = useLocation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleLogout = () => {
         dispatch(logout());

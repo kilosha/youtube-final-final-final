@@ -1,8 +1,21 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import FavoritesModal from "./components/FavoritesModal";
 
-const ModalContext = createContext(null);
-export const useModal = () => useContext(ModalContext);
+type ModalContextType = {
+    openModal: (mode: string, props: FavoriteItem) => void;
+    closeModal: () => void;
+};
+
+const ModalContext = createContext<ModalContextType | null>(null);
+export const useModal = (): ModalContextType => {
+    const context = useContext(ModalContext);
+
+    if (!context) {
+        throw new Error("useModal must be used within ModalProvider");
+    }
+
+    return context;
+};
 
 type FavoriteItem = {
     id: string;
