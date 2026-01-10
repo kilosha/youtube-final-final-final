@@ -7,7 +7,7 @@ import responseMock from "../../response.js";
 const getVideos = createAsyncThunk(
     "videos/getVideos",
     async (
-        searchInfo: { query: string; maxResults: number; sortBy: string },
+        searchInfo: { query: string; maxResults?: number; sortBy?: string },
         thunkAPI
     ) => {
         const response = await axios.get(

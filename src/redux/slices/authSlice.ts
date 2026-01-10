@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getErrorMessage } from "../../utils/utils";
 
 const login = createAsyncThunk(
     "auth/login",
@@ -13,7 +14,7 @@ const login = createAsyncThunk(
             );
             return data.token;
         } catch (error) {
-            return rejectWithValue({ message: error.response.data.message });
+            return rejectWithValue({ message: getErrorMessage(error) });
         }
     }
 );

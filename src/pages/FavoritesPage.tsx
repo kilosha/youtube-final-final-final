@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-import React from "react";
+
 import FavoritesList from "../components/FavoritesList";
 
 const FavoritesPage = () => {

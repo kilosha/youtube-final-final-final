@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import FavoritesModal from "./components/FavoritesModal";
+import type { FavoriteItem } from "./constants/Types";
 
 type ModalContextType = {
     openModal: (mode: string, props: FavoriteItem) => void;
@@ -15,14 +16,6 @@ export const useModal = (): ModalContextType => {
     }
 
     return context;
-};
-
-type FavoriteItem = {
-    id: string;
-    query: string;
-    title: string;
-    sortBy: string;
-    maxResults: number;
 };
 
 type PropsType = {

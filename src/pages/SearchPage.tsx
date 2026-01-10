@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+
 import Results from "../components/Results";
 import MySearch from "../components/MySearch";
 import useTypedSelector from "../hooks/useTypedSelector";

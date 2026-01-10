@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import { Segmented, Typography } from "antd";
+import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 
 import VideosList from "../components/VideosList";
 import VideosCards from "./VideosCards";

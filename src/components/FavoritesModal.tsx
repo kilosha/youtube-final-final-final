@@ -1,6 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button, Slider, Select, Form, Input, Modal, Radio } from "antd";
-import { Col, InputNumber, Row, Space } from "antd";
+import { useEffect } from "react";
+import {
+    Slider,
+    Select,
+    Form,
+    Input,
+    Modal,
+    Col,
+    InputNumber,
+    Row
+} from "antd";
+
 import { addFavorite, editFavorite } from "../redux/slices/favoritesSlice";
 import useAppDispatch from "../hooks/useAppDispatch";
 

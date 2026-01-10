@@ -9,6 +9,7 @@ import { getVideos } from "../redux/slices/videosSlice";
 import { deleteFavorite } from "../redux/slices/favoritesSlice";
 import useTypedSelector from "../hooks/useTypedSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
+import type { FavoriteItem } from "../constants/Types";
 
 const { Text } = Typography;
 
@@ -18,11 +19,11 @@ const FavoritesList = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const onEdit = (item) => {
+    const onEdit = (item: FavoriteItem) => {
         openModal("edit", item);
     };
 
-    const onDeletionConfirmed = (item) => {
+    const onDeletionConfirmed = (item: FavoriteItem) => {
         dispatch(deleteFavorite(item));
     };
 

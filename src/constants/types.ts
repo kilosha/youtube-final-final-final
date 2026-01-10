@@ -4,3 +4,11 @@ export type VideoItem = {
     title: string;
     description: string;
 };
+
+export type FavoriteItem = {
+    id: string;
+    query: string;
+    title: string;
+    sortBy: string;
+    maxResults: number;
+};

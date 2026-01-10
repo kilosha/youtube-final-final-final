@@ -1,10 +1,12 @@
+import { NavLink, useLocation } from "react-router";
 import { Layout, Menu, Button } from "antd";
 
-const { Header } = Layout;
-import logo from "../assets/logo.svg";
-import { NavLink, useLocation } from "react-router";
 import { logout } from "../redux/slices/authSlice";
 import useAppDispatch from "../hooks/useAppDispatch";
+
+import logo from "../assets/logo.svg";
+
+const { Header } = Layout;
 
 const items = [
     {

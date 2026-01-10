@@ -1,8 +1,9 @@
+import { Outlet } from "react-router";
 import { Layout } from "antd";
 
-const { Content } = Layout;
-import { Outlet } from "react-router";
 import MyHeader from "../components/MyHeader";
+
+const { Content } = Layout;
 
 const MainLayout = () => {
     return (
