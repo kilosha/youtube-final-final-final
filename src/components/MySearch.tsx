@@ -12,7 +12,11 @@ const MySearch = () => {
     const { openModal } = useModal();
     const dispatch = useAppDispatch();
     const onSearch = async () => {
-        dispatch(getVideos({ query: searchValue }));
+        if (searchValue.trim()) {
+            // setTimeout(() => {
+            dispatch(getVideos({ query: searchValue.trim() }));
+            // }, 5000);
+        }
     };
 
     const onHeartClick = () => {
@@ -36,7 +40,7 @@ const MySearch = () => {
             suffix={
                 <HeartOutlined
                     style={{
-                        visibility: searchValue ? "visible" : "hidden",
+                        visibility: searchValue.trim() ? "visible" : "hidden",
                         cursor: "pointer"
                     }}
                     onClick={onHeartClick}

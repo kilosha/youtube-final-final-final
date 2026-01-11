@@ -128,7 +128,7 @@ const LoginPage = () => {
                             </Button>
                         </Form.Item>
                         <Form.Item label={null}>
-                            or <Link to={"/register"}>Register now!</Link>
+                            или <Link to={"/register"}>Зарегистрироваться</Link>
                         </Form.Item>
                     </Form>
                 </Content>

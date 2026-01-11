@@ -50,6 +50,7 @@ const FavoritesList = () => {
                     >
                         <Text
                             strong
+                            style={{ cursor: "pointer" }}
                             onClick={() => {
                                 navigate("/search");
                                 dispatch(getVideos(item));

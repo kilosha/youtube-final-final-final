@@ -19,6 +19,23 @@ const login = createAsyncThunk(
     }
 );
 
+const register = createAsyncThunk(
+    "auth/register",
+    async (values: object, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(
+                "https://todo-redev.herokuapp.com/api/users/register",
+                {
+                    ...values
+                }
+            );
+            return data.token;
+        } catch (error) {
+            return rejectWithValue({ message: getErrorMessage(error) });
+        }
+    }
+);
+
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -44,7 +61,7 @@ export const authSlice = createSlice({
     }
 });
 
-export { login };
+export { login, register };
 
 export const { logout } = authSlice.actions;
 

@@ -31,8 +31,8 @@ export const ModalProvider = ({ children }: PropsType) => {
         setMode(mode);
         setModalProps({
             id: props.id || "",
-            query: props.query,
-            title: props.title || props.query,
+            query: props.query.trim(),
+            title: props.title || props.query.trim(),
             sortBy: props.sortBy || "relevance",
             maxResults: props.maxResults || 12
         });

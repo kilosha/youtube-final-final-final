@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router";
-import { Button, Layout, message, Form, Input } from "antd";
+import { Button, Layout, message, Form, Input, Radio, DatePicker } from "antd";
 import type { FormProps } from "antd";
 
-import { login } from "../redux/slices/authSlice";
+import { login, register } from "../redux/slices/authSlice";
 import useTypedSelector from "../hooks/useTypedSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
 
 import logo from "../assets/logo.svg";
+import dayjs from "dayjs";
 
 const { Content } = Layout;
 
@@ -27,7 +28,12 @@ const RegisterPage = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
         try {
-            await dispatch(login(values)).unwrap();
+            values.age = dayjs().diff(dayjs(values.age), "year");
+
+            await dispatch(register(values)).unwrap();
+            await dispatch(
+                login({ email: values.email, password: values.password })
+            ).unwrap();
             navigate("/search");
         } catch (error) {
             messageApi.error(error.message);
@@ -63,17 +69,16 @@ const RegisterPage = () => {
                         layout="vertical"
                         labelCol={{ span: 8 }}
                         style={{
-                            maxWidth: 600,
+                            width: 500,
                             border: "1px solid rgba(39, 39, 39, 0.1)",
                             borderRadius: "5px",
                             padding: "40px 88px 60px",
                             backgroundColor: "#FFFFFF"
                         }}
-                        // initialValues={{ remember: true }}
+                        initialValues={{ gender: "male" }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
-                        requiredMark="optional"
                     >
                         <Form.Item label={null}>
                             <img src={logo} alt={"logo"} />
@@ -83,17 +88,12 @@ const RegisterPage = () => {
                         <Form.Item<FieldType>
                             label="Имя пользователя"
                             name="username"
+                            labelCol={{ span: 12 }}
                             rules={[
                                 {
-                                    pattern: new RegExp(
-                                        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-                                    ),
-                                    message: "Введите валидный email",
-                                    validateTrigger: "onBlur"
-                                },
-                                {
                                     required: true,
-                                    message: "Пожалуйста, введите email",
+                                    message:
+                                        "Пожалуйста, введите имя пользователя",
                                     validateTrigger: "onSubmit"
                                 }
                             ]}
@@ -139,15 +139,27 @@ const RegisterPage = () => {
                             label="Пол"
                             name="gender"
                         >
-                            <Input />
+                            <Radio.Group
+                                options={[
+                                    { value: "male", label: "Мужской" },
+                                    { value: "female", label: "Женский" }
+                                ]}
+                            />
                         </Form.Item>
 
                         <Form.Item<FieldType>
+                            labelCol={{ span: 12 }}
                             required
-                            label="Возраст"
+                            label="Дата рождения"
                             name="age"
+                            tooltip="Вам должно быть 18 лет, чтобы зарегистрироваться"
                         >
-                            <Input />
+                            <DatePicker
+                                maxDate={dayjs(
+                                    dayjs().subtract(18, "year"),
+                                    "YYYY-MM-DD"
+                                )}
+                            />
                         </Form.Item>
 
                         {/* <Form.Item<FieldType>
