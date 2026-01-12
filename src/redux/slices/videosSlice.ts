@@ -12,7 +12,7 @@ const getVideos = createAsyncThunk(
         thunkAPI
     ) => {
         const response = await axios.get(
-            "https://youtube.googleapis.com/youtube/v3/search",
+            import.meta.env.VITE_YOUTUBE_SEARCH_API,
             {
                 params: {
                     type: "video",

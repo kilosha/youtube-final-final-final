@@ -20,14 +20,7 @@ const VideosList = () => {
                                         src={item.image}
                                     />
                                 }
-                                title={
-                                    <a
-                                        href={`https://www.youtube.com/watch?v=${item.id}`}
-                                        target="_blank"
-                                    >
-                                        {item.title}
-                                    </a>
-                                }
+                                title={item.title}
                                 description={item.description}
                             />
                         </Skeleton>

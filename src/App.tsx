@@ -1,5 +1,5 @@
 import { ConfigProvider } from "antd";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 
 import SearchPage from "./pages/SearchPage";
 import LoginPage from "./pages/LoginPage";
@@ -36,6 +36,10 @@ function App() {
 
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
+                    <Route
+                        path="*"
+                        element={<Navigate replace to="/search" />}
+                    />
                 </Routes>
             </ConfigProvider>
         </>
