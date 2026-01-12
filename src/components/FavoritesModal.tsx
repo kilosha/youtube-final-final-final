@@ -12,6 +12,7 @@ import {
 
 import { addFavorite, editFavorite } from "../redux/slices/favoritesSlice";
 import useAppDispatch from "../hooks/useAppDispatch";
+import useTypedSelector from "../hooks/useTypedSelector";
 
 interface Values {
     title?: string;
@@ -21,13 +22,12 @@ interface Values {
 
 const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
     const dispatch = useAppDispatch();
-    // const { modalData } = useSelector((state) => state.modal);
+    const { userId } = useTypedSelector((state) => state.auth);
     const [form] = Form.useForm();
-    //const [formValues, setFormValues] = useState<Values>(data);
 
     const onCreate = (values: Values) => {
         if (mode === "add") {
-            dispatch(addFavorite(values));
+            dispatch(addFavorite({ ...values, userId }));
         } else {
             dispatch(editFavorite({ ...values, id: data.id }));
         }
@@ -98,28 +98,12 @@ const FavoritesModal = ({ mode, isModalOpen, close, data }) => {
                             name="maxResults"
                             label="Максимальное количество"
                         >
-                            <Slider
-                                min={1}
-                                max={50}
-                                // onChange={onChange}
-                                // value={
-                                //     typeof inputValue === "number"
-                                //         ? inputValue
-                                //         : 0
-                                // }
-                                step={1}
-                            />
+                            <Slider min={1} max={50} step={1} />
                         </Form.Item>
                     </Col>
                     <Col span={4}>
                         <Form.Item name="maxResults" label="">
-                            <InputNumber
-                                min={1}
-                                max={50}
-                                step={1}
-                                //value={inputValue}
-                                //onChange={onChange}
-                            />
+                            <InputNumber min={1} max={50} step={1} />
                         </Form.Item>
                     </Col>
                 </Row>

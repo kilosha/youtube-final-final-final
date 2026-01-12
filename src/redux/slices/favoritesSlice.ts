@@ -1,56 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { responseFormatter } from "../../utils/utils";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+import type { FavoriteItem } from "../../constants/types";
 
-// Создаем асинхронное действие с помощью createAsyncThunk
-// const fetchGetTasks = createAsyncThunk(
-//     "todos/fetchGetTasks",
-//     async (_, { rejectWithValue }) => {
-//         try {
-//             const { data } = await API.get("/todos");
-//             return data;
-//         } catch (error) {
-//             return rejectWithValue({ message: getErrorMessage(error) });
-//         }
-//     }
-// );
+type FavoritesType = {
+    favorites: FavoriteItem[];
+};
 
-// const getFavorites = createAsyncThunk(
-//     "favorites/getFavorites",
-//     async (searchValue, thunkAPI) => {
-//         const response = await axios.get(
-//             "https://youtube.googleapis.com/youtube/v3/search",
-//             {
-//                 params: {
-//                     type: "video",
-//                     part: "snippet",
-//                     maxResults: 12,
-//                     q: searchValue,
-//                     key: import.meta.env.VITE_API_KEY
-//                 }
-//             }
-//         );
-//         const data = response.data;
-//         const result = responseFormatter(data);
-
-//         return { ...result, searchValue };
-//     }
-// );
+const initialState: FavoritesType = {
+    favorites: []
+};
 
 export const favoritesSlice = createSlice({
     name: "favorites",
-    //initialState,
-    initialState: {
-        favorites: [
-            {
-                query: "diana pilat heelssession",
-                title: "diana pilat heelssession",
-                sortBy: "relevance",
-                maxResults: 22,
-                id: "4e8676de-ff89-4a70-8253-46b9dbdd1258"
-            }
-        ]
-    },
+    initialState,
     reducers: {
         addFavorite: (state, action) => {
             state.favorites.push({
@@ -73,15 +34,7 @@ export const favoritesSlice = createSlice({
             );
         }
     }
-    // extraReducers: (builder) => {
-    //     builder.addCase(getFavorites.fulfilled, (state, action) => {
-    //         state.favorites = action.payload.favorites;
-    //         state.totalResults = action.payload.totalResults;
-    //     });
-    // }
 });
-
-//export { getFavorites };
 
 export const { addFavorite, editFavorite, deleteFavorite } =
     favoritesSlice.actions;

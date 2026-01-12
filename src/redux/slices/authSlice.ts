@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getErrorMessage } from "../../utils/utils";
+import { jwtDecode } from "jwt-decode";
 
 const login = createAsyncThunk(
     "auth/login",
@@ -40,17 +41,20 @@ export const authSlice = createSlice({
     name: "auth",
     initialState: {
         token: null,
-        isLoading: false
+        isLoading: false,
+        userId: ""
     },
     reducers: {
         logout: (state) => {
             state.token = null;
+            state.userId = "";
         }
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
             state.token = action.payload;
             state.isLoading = false;
+            state.userId = jwtDecode(action.payload).id;
         });
         builder.addCase(login.pending, (state) => {
             state.isLoading = true;

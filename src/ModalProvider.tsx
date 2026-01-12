@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import FavoritesModal from "./components/FavoritesModal";
-import type { FavoriteItem } from "./constants/Types";
+import type { FavoriteItem } from "./constants/types";
 
 type ModalContextType = {
     openModal: (mode: string, props: FavoriteItem) => void;

@@ -17,12 +17,18 @@ import authReducer from "./slices/authSlice";
 const authPersistConfig = {
     key: "auth",
     storage,
-    whitelist: ["token"]
+    whitelist: ["token", "userId"]
+};
+
+const favoritesPersistConfig = {
+    key: "favorites",
+    storage,
+    whitelist: ["favorites"]
 };
 
 const rootReducer = combineReducers({
     videos: videosReducer,
-    favorites: favoritesReducer,
+    favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
     auth: persistReducer(authPersistConfig, authReducer)
 });
 

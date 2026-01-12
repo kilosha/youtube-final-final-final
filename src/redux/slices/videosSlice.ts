@@ -3,6 +3,7 @@ import { responseFormatter } from "../../utils/utils";
 import axios from "axios";
 
 import responseMock from "../../response.js";
+import { logout } from "./authSlice.js";
 
 const getVideos = createAsyncThunk(
     "videos/getVideos",
@@ -25,26 +26,37 @@ const getVideos = createAsyncThunk(
         );
         const data = response.data;
         const result = responseFormatter(data);
-        //        const result = responseFormatter(responseMock);
+        //const result = responseFormatter(responseMock);
 
         return { ...result, query: searchInfo.query };
     }
 );
 
+const initialState = {
+    videos: [],
+    totalResults: 0,
+    query: "",
+    isLoading: false
+};
+
 export const videosSlice = createSlice({
     name: "videos",
-    initialState: {
-        videos: [],
-        totalResults: 0,
-        query: ""
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getVideos.fulfilled, (state, action) => {
             state.videos = action.payload.videos;
             state.totalResults = action.payload.totalResults;
             state.query = action.payload.query;
+            state.isLoading = false;
         });
+        builder.addCase(getVideos.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getVideos.rejected, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(logout, () => initialState);
     }
 });
 

@@ -8,7 +8,9 @@ import useAppDispatch from "../hooks/useAppDispatch";
 
 const MySearch = () => {
     const [searchValue, setSearchValue] = useState("");
-    const { videos, query } = useTypedSelector((state) => state.videos);
+    const { videos, query, isLoading } = useTypedSelector(
+        (state) => state.videos
+    );
     const { openModal } = useModal();
     const dispatch = useAppDispatch();
     const onSearch = async () => {
@@ -49,6 +51,7 @@ const MySearch = () => {
             onSearch={onSearch}
             value={searchValue}
             onChange={onChangeSearchValue}
+            loading={isLoading}
         />
     );
 };
